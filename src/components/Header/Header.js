@@ -12,7 +12,7 @@ const Header = () => {
             <Nav className="mr-auto">
                 <Nav.Link href="/home">Home</Nav.Link>
                 <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                <Nav.Link href="/about">About</Nav.Link>
                 <Button href="/admin" className="m-1" variant="danger">Admin</Button>
                 <Button href="/login" className="m-1" variant="success">Register</Button>
                 <Nav.Link href="/user">{loggedInUser.email? loggedInUser.name :"User"}</Nav.Link>

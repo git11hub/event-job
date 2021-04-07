@@ -2,20 +2,46 @@ import React, { useState } from 'react';
 import { Col, Container, Row, Table } from 'react-bootstrap';
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faUserMd, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-
 import { useForm } from "react-hook-form";
+import axios from 'axios';
 
 const Admin = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+
+    const [imageURL, setImageURL] = useState(null);
+
+    const onSubmit = data => {
+        const eventData = {
+            company: data.example,
+            designation: data.designation,
+            location: data.location,
+            qualification: data.qualification,
+            experience: data.experience,
+            deadline: data.deadline,
+            imageURL: imageURL
+        }
+        console.log(eventData);
+    };
+
+    const handleImageUpload = event => {
+        // console.log(event.target.files[0]);
+        const imageData = new FormData();
+        imageData.set('key', '5870d12aca9578621979f197d76fce5a');
+        imageData.append('image', event.target.files[0])
+
+        axios.post('https://api.imgbb.com/1/upload', imageData)
+            .then(function (response) {
+                setImageURL(response.data.data.display_url);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     const [show, setShow] = useState(true);
 
@@ -46,16 +72,6 @@ const Admin = () => {
                         <NavText>
                             <FontAwesomeIcon icon={faPlus} /> Add Job
                         </NavText>
-                        {/* <NavItem eventKey="charts/linechart">
-                                <NavText>
-                                    Line Chart
-                                </NavText>
-                            </NavItem>
-                            <NavItem eventKey="charts/barchart">
-                                <NavText>
-                                    Bar Chart
-                                </NavText>
-                            </NavItem> */}
                     </NavItem>
                 </SideNav.Nav>
             </SideNav>
@@ -91,19 +107,35 @@ const Admin = () => {
                     </tbody>
                 </Table> :
 
-                <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
-                    <input defaultValue="" {...register("example")} />
-                    <br/>
-                    <br/>
+                <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>                    
 
-                    {/* <input name="name" defaultValue="" placeholder="Product Name" ref={register} />
+                    <input placeholder="Company name" defaultValue="" {...register("example")} />
                     <br />
-                    <br /> */}
+                    <br />
 
-                    <input {...register("exampleRequired", { required: true })} />
-                    {errors.exampleRequired && <span>This field is required</span>}
-                    <br/>
-                    <br/>
+                    <input placeholder="designation" defaultValue="" {...register("designation")} />
+                    <br />
+                    <br />
+
+                    <input name="location" placeholder="location" defaultValue="" {...register("location")} />
+                    <br />
+                    <br />
+
+                    <input name="qualification" placeholder="Education Qualification" defaultValue="" {...register("qualification")} />
+                    <br />
+                    <br />
+
+                    <input name="experience" placeholder="experience" defaultValue="" {...register("experience")} />
+                    <br />
+                    <br />
+
+                    <input name="Deadline" placeholder="Deadline" defaultValue="" {...register("Deadline")} />
+                    <br />
+                    <br />
+
+                    <input id="getFile" name="image" type="file" placeholder="" defaultValue="" onChange={handleImageUpload} />
+                    <br />
+                    <br />
 
                     <input type="submit" />
                 </form>
