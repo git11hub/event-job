@@ -1,20 +1,28 @@
-import { Button } from 'react-bootstrap';
-import React from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
+import Job from '../Job/Job';
+import { JobContext } from '../../App';
 
 const Home = () => {
+
+    const [jobList, setJobList] = useContext(JobContext);
+    // const [jobList, setJobList] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/job-list`)
+            .then(res => res.json())
+            .then(data => setJobList(data))
+    }, [])
+
     return (
-        <Card className="mt-5" style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-        </Card>
+        <Container>
+            <Row>
+                {
+                    jobList.map(job => <Job job={job}></Job>)
+                }
+            </Row>
+        </Container>
     );
 };
 

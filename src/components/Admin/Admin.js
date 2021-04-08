@@ -24,8 +24,18 @@ const Admin = () => {
             experience: data.experience,
             deadline: data.deadline,
             imageURL: imageURL
-        }
-        console.log(eventData);
+        };
+        const url = `http://localhost:8080/addEvent`;
+        // console.log(eventData);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(eventData)
+        })
+        .then(res => console.log('server side response', res))
     };
 
     const handleImageUpload = event => {
@@ -129,7 +139,7 @@ const Admin = () => {
                     <br />
                     <br />
 
-                    <input name="Deadline" placeholder="Deadline" defaultValue="" {...register("Deadline")} />
+                    <input name="deadline" placeholder="Deadline" defaultValue="" {...register("deadline")} />
                     <br />
                     <br />
 

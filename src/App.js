@@ -15,37 +15,41 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import About from './components/About/About';
 
 export const UserContext = createContext();
+export const JobContext = createContext();
 
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [jobList, setJobList] = useState([]);
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-      <Container>
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            <Route path="/user">
-              <User />
-            </Route>
-          </Switch>
-        </Router>
-      </Container>
+      <JobContext.Provider value={[jobList, setJobList]}>
+        <Container>
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/admin">
+                <Admin />
+              </Route>
+              <Route path="/user">
+                <User />
+              </Route>
+            </Switch>
+          </Router>
+        </Container>
+      </JobContext.Provider>
     </UserContext.Provider>
   );
 }
