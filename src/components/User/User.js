@@ -10,7 +10,7 @@ const User = () => {
                     <th>Company Name</th>
                     <th>Designation</th>
                     <th>Date</th>
-                    <th>Expected Salary</th>
+                    <th>Location</th>
                     <th>Action</th>
                 </tr>
             </thead>

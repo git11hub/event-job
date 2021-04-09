@@ -2,13 +2,20 @@ import { Button, Col } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import { JobContext } from '../../App';
+import { useHistory } from 'react-router';
 
 const Job = (props) => {
 
-    const { company, designation, location, qualification, deadline, experience, imageURL } = props.job;
+    const { company, designation, location, qualification, deadline, experience, imageURL, _id } = props.job;
 
     const [jobList, setJobList] = useContext(JobContext);
     console.log(props);
+
+    const history = useHistory();
+
+    const details = () => {
+        history.push(`/jobdetails/${_id}`);
+    }
 
     return (
         <Col>
@@ -23,7 +30,7 @@ const Job = (props) => {
                         <li style={{ listStyleType: "none" }}><strong>Experience:</strong> {experience}</li>
                         <li style={{ listStyleType: "none" }}><strong>Deadline:</strong> {deadline}</li>
                     </Card.Text>
-                    <Button variant="primary">Details...</Button>
+                    <Button onClick={details} variant="primary">Details...</Button>
                 </Card.Body>
             </Card>
         </Col>

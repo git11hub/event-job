@@ -13,6 +13,7 @@ import User from './components/User/User';
 import { createContext, useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import About from './components/About/About';
+import JobDetails from './components/JobDetails/JobDetails';
 
 export const UserContext = createContext();
 export const JobContext = createContext();
@@ -45,6 +46,9 @@ function App() {
               </Route>
               <Route path="/user">
                 <User />
+              </Route>
+              <Route path="/jobdetails/:id">
+                <JobDetails />
               </Route>
             </Switch>
           </Router>
