@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 
 const User = () => {
+
+    const [appliedJob, setAppliedJob] = useState([]);   
+
+    console.log(appliedJob);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/appliedJob`)
+            .then(res => res.json())
+            .then(data => setAppliedJob(data))
+    }, [])
+
     return (
         <Table className="mt-5" striped bordered hover size="sm">
             <thead>
@@ -15,22 +26,18 @@ const User = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                {
+                  appliedJob.map(singleApplied =>
+                  <tr>
+                    <td></td>
+                    <td>{singleApplied.company}</td>
+                    <td>{singleApplied.designation}</td>
                     <td>3-5-21</td>
-                    <td>Hudo</td>
+                    <td>{singleApplied.location}</td>
                     <td>mdo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>4-2-21</td>
-                    <td>bat</td>
-                    <td>fat</td>
-                </tr>                
+                </tr> )  
+                }
+                
             </tbody>
         </Table>
     );

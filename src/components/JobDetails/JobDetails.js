@@ -1,11 +1,21 @@
 import { Button } from 'react-bootstrap';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { JobContext } from '../../App';
 
 const JobDetails = () => {
 
-    const {id} = useParams();
+    // const [appliedJob, setAppliedJob] = useState([]);
+
+    // console.log(appliedJob);
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:8080/appliedJob`)
+    //         .then(res => res.json())
+    //         .then(data => setAppliedJob(data))
+    // }, [])
+
+    const { id } = useParams();
 
     const [jobList, setJobList] = useContext(JobContext);
 
@@ -22,7 +32,7 @@ const JobDetails = () => {
             },
             body: JSON.stringify(selectedJob)
         })
-        .then(res => console.log('server side response', res))
+            .then(res => console.log('server side response', res))
     }
 
     return (
